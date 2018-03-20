@@ -1,0 +1,28 @@
+\usepackage{graphicx}
+\usepackage{eso-pic}
+\usepackage[overlay,absolute]{textpos}
+\usepackage{color}
+\usepackage{subfiles}
+\usepackage[pdftex,
+			pdfauthor={Alejandro Suarez Hernandez},
+			pdftitle={Towards effective planning strategies for robots in recycling},
+			pdfsubject={Automatic planning},
+			pdfkeywords={automatic planning, robotics, recycling},
+			pdfproducer={Latex with hyperref},
+			pdfcreator={latexmk}]{hyperref}
+\usepackage{blindtext}
+\usepackage{subcaption}
+%\usepackage[top=2cm,bottom=2cm,left=3cm,right=1.5cm]{geometry}
+
+\graphicspath{{./img/}{../img/}}
+
+\newcommand\BackgroundPic{%
+\setlength{\unitlength}{1mm}
+\put(0,1){%
+\parbox[b][\paperheight]{\paperwidth}{%
+	\vfill
+	\centering
+	\includegraphics[width=\paperwidth,height=\paperheight,%
+	keepaspectratio]{iri-tesis_front_page.png}%
+	\vfill
+}}}

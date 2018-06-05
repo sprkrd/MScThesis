@@ -39,33 +39,35 @@
 	\textbf{Abstract}
 \end{center}
 
-We describe a research project in which we explore the effectiveness of an
-approach for integrated symbolic and geometric planning in robotics.
-We target to solve an assembling-like problem with two robot arms. The
-scenario we propose involves two \emph{Barrett Technology}'s WAM robots
-that work cooperatively to solve a game for kids. This experiment has
-a double purpose: setting out a practical challenge that guides our work; and
-acting as a means to visually validate and show the obtained results.
-We also cover Project Management aspects such as the temporal planning and
-the economic, social and
-environmental analysis.
+In the present work we describe several ideas for planning under 
+uncertainty. Our intention is to apply these ideas for recycling
+electronic devices with a robotic arm. We formulate the problem as
+a goal-based MDP (Markov Decision Process) or, equivalently, a SSPP
+(Stochastic Shortest Path Problem). Typical algorithms to solve MDPs,
+such as Value Iteration, suffer from the curse of
+dimensionality when the state is composed of a large number of
+variables. To address this, we study the suitability
+of several determinization techniques. The deterministic version
+of the problem is solved with state-of-the-art classical planners
+such as Fast Forward or
+Fast Downward. The advantage of such methods is that only a small
+region of the state space is explored. Another observation that we
+exploit is that the goals disassembly domain can be sorted quite
+effortlessly thanks to the topological precedences between components.
+Therefore, we can limit the planning horizon and plan hierarchically.
 
-\vspace{1cm}
+\vspace{0.33cm}
 \noindent
 {\itshape
-	Describimos un proyecto de investigaci\'on en el cual exploramos la
-	efectividad de una estrategia de integraci\'on de planificaci\'on
-	simb\'olica y geom\'etrica en el \'area de la rob\'otica. Nos proponemos
-	resolver un problema equiparable a una tarea de ensamblado mediante dos
-	brazos robot. El escenario que planteamos involucra dos robots WAM de la
-	empresa Barrett Technology trabajando cooperativamente para resolver
-	un juego dirigido a un p\'ublico infantil. El experimento cumple dos
-	misiones: plantearnos un reto pr\'actico que nos ayude a orientar y guiar
-	nuestro trabajo; y proporcionar un medio
-	visual de demostrar y validar los resultados obtenidos. Adicionalmente
-	cubrimos aspectos t\'ipicos de la gesti\'on de proyectos tales como
-	la planificaci\'on temporal y el an\'alisis social, econ\'omico y
-	medioambiental.
+	En este trabajo describimos varias ideas para planificar bajo
+	incertidumbre. Queremos aplicar estas ideas a reciclar
+	dispositivos electrónicos mediante un brazo robot. Formulamos
+	el problema como un MDP (Markov Decision Process) o, equivalentemente,
+	un SSPP (Stochastic Shortest Path Problem). Los algoritmos típicos
+	de resolución de MDP, tales como Value Iteration, sufren de
+	espacios de estados inmensos cuando el estado está conformado
+	por una gran cantidad de variables. Para superar esta dificultad,
+	estudiamos el redimiento de varias técnicas de determinización.
 }
 
 \vspace{1cm}

@@ -20,6 +20,7 @@
 % ABSTRACT %
 %%%%%%%%%%%%
 
+\newcommand{\abstractseparation}{0.66cm}
 \cleardoublepage
 
 \thispagestyle{plain}
@@ -39,56 +40,58 @@
 	\textbf{Abstract}
 \end{center}
 
-In the present work we describe several ideas for planning under 
-uncertainty. Our intention is to apply these ideas for recycling
+In this work we present several ideas for planning under 
+uncertainty. Our intention is to apply these ideas to the domain
+of recycling
 electronic devices with a robotic arm. We formulate the problem as
 a goal-based MDP (Markov Decision Process) or, equivalently, a SSPP
-(Stochastic Shortest Path Problem). Typical algorithms to solve MDPs,
-such as Value Iteration, suffer from the curse of
-dimensionality when the state is composed of a large number of
-variables. To address this, we study the suitability
-of several determinization techniques. The deterministic version
-of the problem is solved with state-of-the-art classical planners
-such as Fast Forward or
-Fast Downward. The advantage of such methods is that only a small
-region of the state space is explored. Another observation that we
-exploit is that the goals disassembly domain can be sorted quite
-effortlessly thanks to the topological precedences between components.
-Therefore, we can limit the planning horizon and plan hierarchically.
+(Stochastic Shortest Path Problem). We propose determinization
+techniques in order to take advantage of state-of-the-art
+classical planning systems, such as Fast Downward. On the other hand,
+we exploit the topological precedences between the different
+components of the device to plan hierarchically and limit further
+the complexity of (re)planning. This work has been conducted within
+the European H2020 Imagine project.
 
-\vspace{0.33cm}
+\vspace{\abstractseparation}%
+\hrule
+\vspace{\abstractseparation}
 \noindent
 {\itshape
-	En este trabajo describimos varias ideas para planificar bajo
+	En aquest treball presentem diverses idees per planificar sota
+	incertesa. Volem aplicar aquestes idees a reciclar
+	dispositius electr\`onics mitjan\c{c}ant un bra\c{c} robot. Formulem
+	el problema com un MDP (Markov Decision Process) o, equivalentment,
+	un SSPP (Stochastic Shortest Path Problem). Proposem t\`ecniques
+	de determinitzaci\'o per aprofitar els \'ultims avan\c{c}os en
+	planificadors cl\`assics com, per exemple, Fast Downward. D'altra banda,
+	explotem les preced\`encies topol\`ogiques entre els diferents
+	components del dispositiu per planificar jer\`arquicament i
+	limitar encara m\'es la complexitat de (re)planificar. Aquest
+	treball es s'ha dut a terme dins del projecte europeu H2020 Imagine.
+}
+
+\vspace{\abstractseparation}
+\hrule
+\vspace{\abstractseparation}
+\noindent
+{\itshape
+	En este trabajo presentamos varias ideas para planificar bajo
 	incertidumbre. Queremos aplicar estas ideas a reciclar
-	dispositivos electrónicos mediante un brazo robot. Formulamos
+	dispositivos electr\'onicos mediante un brazo robot. Formulamos
 	el problema como un MDP (Markov Decision Process) o, equivalentemente,
-	un SSPP (Stochastic Shortest Path Problem). Los algoritmos típicos
-	de resolución de MDP, tales como Value Iteration, sufren de
-	espacios de estados inmensos cuando el estado está conformado
-	por una gran cantidad de variables. Para superar esta dificultad,
-	estudiamos el redimiento de varias técnicas de determinización.
+	un SSPP (Stochastic Shortest Path Problem). Proponemos t\'ecnicas
+	de determinizaci\'on para aprovechar los últimos avances en
+	planificadores cl\'asicos, tales como Fast Downward. Por otro lado,
+	explotamos las precedencias topol\'ogicas entre los distintos
+	componentes del dispositivo para planificar jer\'arquicamente y
+	limitar a\'un m\'as la complejidad de (re)planificar. Este trabajo
+	se ha llevado a dentro del marco del proyecto europeo H2020 Imagine.
 }
 
-\vspace{1cm}
-\noindent
-{\itshape
-	Descrivim un projecte d'investigaci\'o on explorem l'efectivitat d'una
-	estat\`egia d'integraci\'o de planificaci\'o simb\'olica i geom\`etrica
-	en l'àmbit de la rob\`otica. Ens proposem resoldre un problema equiparable
-	a una tasca de muntatge. L'escenari que
-	plantegem t\'e dos robots WAM de l'empresa Barrett Technology
-	treballant cooperativament per resoldre un joc pels nens. L'experiment
-	compleix dues missions: plantejar-nos un repte pr\`actic que ens ajudi a
-	orientar la nostra feina; i proporcionar una forma visual de mostrar i
-	validar els resultats obtinguts. A m\'es a m\'es presentem aspectes
-	t\'ipics de la gesti\'o de projectes com per exemple la planificaci\'o
-	temporal i l'an\`alisi social, econ\`omic i ambiental.
-}
 \cleardoublepage
 
 % Reset page numbering to arabic
-
 \pagenumbering{arabic}
 
 %%%%%%%%%%%%%%%%%%%%%
@@ -107,11 +110,24 @@ Therefore, we can limit the planning horizon and plan hierarchically.
 %
 %\blindmathpaper
 
+\chapter{Scope and contextualization}
 \subfile{chapter01/main}
 
+\chapter{Theory and background}
 \subfile{chapter02/main}
 
-\printbibliography
+\chapter{Determinization of stochastic problems}
+\subfile{chapter03/main}
 
+\chapter{Short horizon planning}
+\subfile{chapter04/main}
+
+\chapter{Experimental evaluation}
+\subfile{chapter05/main}
+
+\chapter{Conclusions and future work}
+\subfile{chapter06/main}
+
+\printbibliography
 
 \end{document}

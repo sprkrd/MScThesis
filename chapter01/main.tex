@@ -8,32 +8,41 @@ Industrial robots are programmed to perform highly specialized and
 repetitive actions in controlled environments. Therefore, their
 autonomy is quite limited and they are restricted to a small set
 of problems with small disturbances. We would like that robots that are
-not in such controlled scenarios are able solve a large variety of
+not in such controlled scenarios are able solve a larger variety of
 problems, and even to react in the presence
 of adverse events.
 In other words, we
 would like robots to reason about its environment and about the
 potential effects that their actions may exert on it.
 Such capabilities would allow for great flexibility in the following
-ways: (1) large number of problems that can be handled, where a problem
-is determined by the disposition of the objects that the robot has to
-interact with and by the goal condition; (2) anticipatory
-action selection to avoid undesired effects whenever possible; and (3)
+ways: (1) tasks can be switched without reprogramming; (2) selection
+of actions that minimize the risk of adverse outcomes; and (3)
 contingency mechanisms, should these harmful effects happen anyway.
+
+Our work belongs to the area of \emph{Automatic Planning and Scheduling}
+or, simply, planning. It is a branch inside Artificial
+Intelligence that aims at solving problems that are defined
+declaratively, or with very limited procedural knowledge. That is, a
+planning algorithm
+operates with a model that encodes the dynamics of the domain and, for
+each problem, outputs
+an action sequence
+or a policy that solves it, has a high success probability or has a high
+expected reward. Since Automatic Planning deals with optimizing an agent's
+behavior in a certain environment, it is possible to see some
+similarities between planning and Reinforcement Learning. The main difference
+is that, in its most basic form of planning, the dynamics of the domain are fully
+known by the agent and there is no learning involved (although definitively there
+exist works that allow partial domains and that incorporate learning
+capabilities to complete these domains~\cite{martinez2017relational, martinez2015vmin}).
+There
 
 We can think of several applications for robots that exhibit these
 virtues: assistance of old or impaired people for household chores
-or treatment; automatic system
+or treatment~\cite{canal2018behavior,andriella2018deciding}; automatic system
 configuration or repair in difficult-to-access environments like
-subaquatic facilities; robot-assisted search and rescue missions
-in which several locations has to be explored and debris has to be
-moved around.
-
-We tackle this \emph{Automatic Planning and Scheduling} is a branch inside Artificial
-Intelligence that aims at solving problems that are defined
-declaratively, or almost declaratively. That is, a planning algorithm
-operates with a model of the problem and outputs an action sequence
-or a policy that solves this 
+subaquatic facilities~\cite{palomeras2016toward,ong2010planning} and; the one
+in which we will focus: recycling (retrieval of the valuable components)
 
 \section{Related projects}
 
@@ -41,6 +50,6 @@ or a policy that solves this
 
 \section{Goals}
 
-\IfEq{\jobname}{\detokenize{root}}{}{\printbibliography}
+%\IfEq{\jobname}{\detokenize{root}}{}{\printbibliography}
 
 \end{document}

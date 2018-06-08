@@ -5,6 +5,7 @@
 \section{Introduction}
 
 \subsection{Overview}
+\label{sec:overview}
 
 Industrial \emph{robots} are programmed to perform highly specialized and
 repetitive actions in controlled environments. Therefore, their
@@ -47,7 +48,7 @@ suitable action for a certain state, while a planner takes advantage of a
 model of the domain and employs informed search or other heuristic methods to
 find a plan (although definitively there
 exist works that allow partial domains and that incorporate learning
-capabilities to complete these them~\cite{martinez2017relational, martinez2015vmin}).
+capabilities to complete these them~\cite{martinez2017relational,martinez2015vmin}).
 
 It is worth saying that planning is not a discipline that is particular to
 robotics and, therefore, there exist multiple benchmarks and work in the
@@ -64,7 +65,34 @@ or treatment~\cite{canal2018adapting,andriella2018deciding}; automatic system
 maintenance in difficult-to-access environments, like
 subaquatic facilities~\cite{palomeras2016toward,ong2010planning}; and the one
 in which we focus on: to \emph{automatically disassembly} electronic devices,
-retrieving their most valuable components.
+retrieving their most valuable components. As we will see in the following
+section, the recycling application is very exciting both from a scientific
+and environmental one.
+
+We will resort to the MDP (\emph{Markov Decision Process})
+formalism to express our problem, capturing the uncertainty over
+the state transitions.
+One of the main limitations of MDPs for
+real-life problems is that they assume full observability of the state variables.
+In practice, this is not true for our application. However, dropping this
+assumption results in POMDPs
+(\emph{Partially Observable MDPs}), whose resolution is computationally costly
+and scales badly with the size of the state space. Moreover, POMDPs are
+still difficult to apply when the agent does not know all
+the variables of the state (which may happen when the it is not aware of all
+the relevant objects of the scene).
+
+We update and solve a new MDP each
+time the specification of the state changes (i.e. when new objects are discovered
+after performing an action). Even though solving MDPs is much less intensive than
+solving POMDPs, conventional algorithms such as \emph{Value Iteration} and
+\emph{Policy Iteration} still suffer from the curse of dimensionality when there
+are many state variables. Then, computing a full policy becomes infeasible.
+We explore two complementary strategies for dealing with this: (1)
+determinization algorithms together with classical planners; and (2)
+decompositon of the main goal into sub-goals, taking advantage of the
+topological precedences imposed by some circumstances (e.g. partial
+occlusion).
 
 \subsection{Domain of application}
 
@@ -117,12 +145,12 @@ component fall.
 
 \begin{figure}[tbhp]
 	\centering
-	\begin{subfigure}[b]{0.48\columnwidth}
+	\begin{subfigure}[b]{0.45\columnwidth}
 		\includegraphics[width=\textwidth]{hddtopcover}
 		\caption{}
 	\end{subfigure}
 	~
-	\begin{subfigure}[b]{0.48\columnwidth}
+	\begin{subfigure}[b]{0.45\columnwidth}
 		\includegraphics[width=\textwidth]{hddtopwocover}
 		\caption{}
 	\end{subfigure}
@@ -163,9 +191,108 @@ it should be able to work even with damaged devices.
 
 \section{Involvement in H2020 Imagine}
 
+This research has been conducted as part of the European H2020 project
+\emph{Imagine: Robots Understanding Their Actions by Imagining Their Effects},
+or just \emph{Imagine}\footnote{\url{https://imagine-h2020.eu/}}. The scientific
+objective of \emph{Imagine} is to make robots aware of their environment
+and, in general, to achieve the autonomy objectives described in
+Section~\ref{sec:overview}. The project focuses on the recycling
+application introduced in the former section.
+
+One of the main novel ideas of the project is to use a physics simulator and an
+association engine
+to simulate the different actions that the robot may exert upon the environment.
+This is useful to ``imagine'' plans before executing them and identifying
+the useful actions. Another key aspect of the project is the concept
+of ADES, or \emph{Action Description}, for storing the symbolic description
+of the actions and the DMPs (\emph{Dynamic Movement Primitive}) associated to
+each one. Other aspects such as the perception of the scene and the
+design and construction of a multi-funtional gripper that can deal
+successfully with a wide range of device fall inside the scope of \emph{Imagine}.
+The work presented in this thesis is the result of our research efforts toward
+designing and implementing a decision making subsystem for \emph{Imagine}. This
+subsystem must consider all the available information from the scene to select
+a suitable action and 
+
+\begin{wrapfigure}{L}{0.4\columnwidth}
+	\centering
+	\includegraphics[width=0.95\linewidth]{vrepimage}
+	\caption{Execution of a levering action in the V-REP simulator.}
+	\label{fig:vrepimage}
+\end{wrapfigure}
+
+There are seven European research centers participating in \emph{Imagine},
+each working on a different subsystem.
+The planning subsystem is developed by the IRI-CSIC 
+(\emph{Institut de Rob\`otica i Inform\`atica
+Industrial}\footnote{\url{http://www.iri.upc.edu/}}-\emph{Consejo Superior
+de Investigaciones
+Cient\'ificas}\footnote{\url{http://www.csic.es/}}) partner, which also hosts
+this thesis.
+
+As of today, we have been participating actively on \emph{Imagine} for more
+than a year.
+In April the project was evaluated by a Project Officer and three experts in
+different areas of robotics. It received very positive critics. Part of the
+presentation for the evaluation meeting consisted in a demonstration that
+displayed basic prototypes of the different subsystems interacting with each
+other, and was
+able to solve very simple disassembly simulated scenarios
+involving a
+hard drive (see Fig.~\ref{fig:vrepimage}).
+This demonstration already featured a planner prototype in the loop.
+
 \section{Scope and goals}
 
+The present work revolves mainly around probabilistic planning, without focusing too much
+on topics such as scene perception and low-level robot control.
+We present tools for modeling stochastic problems from the recycling
+domain, as well as techniques for
+dealing efficiently with these problems. Although all the examples and benchmarks
+have been conceived for the particular use case of the hard drive,
+the techniques described here can be extrapolated to other devices by extending
+the state specification with variables particular to these devices.
+We focus on the use case of the
+hard drive disassembly.
+
+More specifically we:
+\begin{itemize}
+	\item propose a set of predicates to represent the different components of
+	the device and their relation to other components. These are used to represent
+	the world state.
+	\item propose a PPDDL (\emph{Probabilistic Planning Domain Definition Language})
+	model for the recycling domain. This model contains the schemata of the actions
+	that can be applied in the domain, as well as the specification of the
+	state variables (predicates and functions). PPDDL defines an action-based
+	DBN (\emph{Dynamic Bayes Network}) with full observability or, equivalently,
+	a MDP.
+	\item explore and test several determinization techniques to achieve fast
+	approximate on-line solutions to MDPs. The rationale is to avoid costly policy
+	recalculations each time the state specification changes when new objects
+	are discovered (e.g. after removing the lid of a hard drive). The considered
+	determinization algorithms are: (1) All-Outcome and Single-Outcome;
+	(2) Alpha-Cost Transition Likelihood; (3) Hindsight optimization.
+	\item complement the previous technique with hierarchical planning, taking
+	advantage of the strong precedences that arise naturally in the
+	considered application. This occurs, for instance, when the read
+\end{itemize}
+
+We assess the effectiveness of these strategies testing them against
+benchmark problems. On the one hand, we have all the problems from past
+IPPCs
+(\emph{International Probabilistic Planning Competitions}, hosted
+each year by the ICAPS). These are useful to evaluate the suitability of
+the different
+determinization strategies in domains different from ours. On the other hand,
+we have hand-crafted a set of benchmark problems that consist of
+hard drive variations with different disposition of components. The determinization
+algorithms are evaluated on top of these, too. In addition, these will serve
+the purpose of assessing the computational gain of the hierarchical planning
+method that is specific for the recycling domain.
+
 \section{Related work}
+
+asdfsadf
 
 \IfEq{\jobname}{\detokenize{root}}{}{\printbibliography}
 

@@ -1,0 +1,192 @@
+\thispagestyle{plain}
+\begin{center}
+	\Large
+	\textbf{Towards Effective Planning Strategies for Robots in Recycling}
+	
+	\vspace{0.4cm}
+	\large
+	Thesis for the M.Sc. in Artificial Intelligence
+	
+	\vspace{0.4cm}
+	\textbf{Alejandro Suárez Hernández}
+	
+	\vspace{0.9cm}
+	\textbf{Abstract}
+\end{center}
+
+In this work we present several ideas for planning under 
+uncertainty. Our intention is to apply these ideas to recycle
+electromechanical devices with a robotic arm. This domain presents two
+challenges: (1) since is not possible to guarantee the desired
+action outcomes due to limited precision and exogenous factors,
+the transition model
+is probabilistic;
+and (2) it is impossible to know the whole configuration of the
+device that is being
+disassembled at once due to occlusions. We opt to
+formulate the problem as
+a goal-based MDP (\emph{Markov Decision Process}) or, equivalently,
+a SSPP
+(Stochastic Shortest Path Problem).
+
+In general, MDPs' solutions consist
+in \emph{policies} (i.e. a mapping from states to actions) rather than action sequences.
+Some of the most well-known algorithms
+to deal with MDPs are \emph{Value Iteration} and \emph{Policy Iteration}.
+However, these algorithms compute full policies and scale badly
+when the state consists of a large number of variables. Due to the
+\emph{curse of dimensionality}, the state space grows too large.
+In addition, the computational effort invested in obtaining full policies for
+solving the MDP is wasted when new objects and, consequently,
+new state variables, are discovered. This renders the
+previous policy invalid because the specification of the state
+and the goal changes.
+
+Therefore, we explore the effectiveness of an on-line planning method
+based on determinization followed by classical planning. We take advantage
+of the well-performing and state-of-the-art systems such as Fast Downward,
+or the older but still widely used Fast Forward. We consider the following
+determinization methods, each presenting different strengths and
+drawbacks: \emph{All-Outcome}, \emph{Single-Outcome}, \emph{Alpha-Cost Transition
+Likelihood} and \emph{Hindsight Optimization}. Another exploitable feature
+of our particular domain is that there are strong precedence relations
+between the components. This allows us to \emph{plan hierarchically},
+bounding the plan horizon and, thus, reducing the computational effort,
+specially if replanning is necessary.
+
+We have hand-crafted a testbed of disassembly problems to test these
+approaches. In addition, the determinization techniques are tested
+against domains
+from past IPPCs (\emph{International Probabilistic Planning Competitions})
+to see how suitable they are under different circumstances.
+%The results show that...
+
+%Think for instance of the
+%locking ring that keeps the platters of a hard drive in place
+
+%While one
+%could think that these are the ideal settings for considering
+%the usage of the POMDP (\emph{Partially Observable Markov Decision
+%	Process}) formalism, these are in practice very hard to solve.
+%Moreover, the power of POMDPs for representing partial observability
+%would be wasted, since in our case the major source of state uncertainty
+%is unobserved objects (i.e. state variables that are missing from the
+%state specification)
+
+\cleardoublepage
+
+\thispagestyle{plain}
+\begin{center}
+	\Large
+	\textbf{Desenvolupament de Estratègies Efectives de Planificació per Reciclatge amb Robots}
+	
+	\vspace{0.4cm}
+	\large
+	Tesi per al Màster en Ciència d'Intel$\cdot$ligència Artificial
+	
+	\vspace{0.4cm}
+	\textbf{Alejandro Suárez Hernández}
+	
+	\vspace{0.9cm}
+	\textbf{Resum}
+\end{center}
+
+En aquest treball presentem diverses idees per planificar sota incertesa.
+Volem aplicar aquestes idees a reciclar dispositius electromecànics
+mitjançant un braç robot. Aquest domini presenta dos reptes: (1) no és possible
+garantir el resultat desitjat de les accions a causa de la precisió limitada
+del robot i de factors externs i, per tant, el model de transició és probabilístic;
+i (2) és impossible conèixer la configuració completa del dispositiu
+que està sent desacoblat degut a les oclusions entre components.
+Optem per formalitzar el problema com un MDP (\emph{Markov Decision Process}) amb
+objectius o, equivalentment, un SSPP (\emph{Stochastic Shortest Plan Problem}).
+
+En general, les solucions dels MDPs consisteixen en \emph{polítiques}
+(i.e. funcions
+que assignen a cada estat l'acció òptima que s'ha d'executar) en lloc de
+seqüències d'accions. Alguns dels algorismes més coneguts per resoldre
+MDPs són \emph{Value Iteration} i \emph{Policy Iteration}.
+No obstant això, aquests algorismes
+computen polítiques completes i la seva complexitat és elevada quan l'estat
+està format per un elevat nombre de variables. Això és perquè l'espai
+d'estats és excessivament gran (\emph{curse of dimensionality}). A més
+a més,
+l'esforç computacional invertit en calcular polítiques completes per
+resoldre el MDP no s'aprofita quan es detecten nous objectes i, per
+tant, canvia la definició de l'estat i dels objectius, invalidant la
+política anterior.
+
+Així doncs, explorem l'efectivitat d'un mètode en línia de planificació
+basat en determinització i planificació clàssica. Aprofitem l'eficiència
+dels planificadore més avançats, com ara Fast Forward. Considerem els
+següents mètodes de determinització: \emph{All-Outcome}, \emph{Single-Outcome},
+\emph{Alpha-Cost Transition Likelihood} i \emph{Hindsight Optimization}.
+Una altra característica explotada en el nostre domini és que hi ha fortes
+relacions de precedència entre
+components. Això ens permet aplicar \emph{planificació jeràrquica}, acotant
+l'horitzó de planificació i, per tant, reduint l'esforç de còmput,
+sobretot si és necessari replanificar.
+
+Hem elaborat un conjunt de problemes de desacoblament per evaluar aquestes
+técniques. A més a més, les tècniques de determinització són provades en
+dominis de les IPPCs (\emph{International Probabilistic Planning Competitions}) de
+anys anteriors, amb l'objectiu de veure com s'adeqüen a altres aplicacions
+diferents de la nostra.
+
+\cleardoublepage
+
+\thispagestyle{plain}
+\begin{center}
+	\Large
+	\textbf{Desarrollo de Estrategias Efectivas de Planificación para Reciclaje con Robots}
+	
+	\vspace{0.4cm}
+	\large
+	Tesis para el Máster en Ciencia de Inteligencia Artificial
+	
+	\vspace{0.4cm}
+	\textbf{Alejandro Suárez Hernández}
+	
+	\vspace{0.9cm}
+	\textbf{Resumen}
+\end{center}
+
+En este trabajo presentamos varias ideas para planificar bajo
+incertidumbre. Queremos aplicar estas ideas a reciclar
+dispositivos electromecánicos mediante un brazo robot. Este dominio
+presenta dos desafíos: (1) no es posible garantizar el resultado deseado
+de las acciones debido a la precisión limitada del robot y a factores
+externos y, por ende, el modelo de transición es probabilístico; y (2)
+es imposible conocer la configuración completa del dispositivo que
+está siendo
+desensamblado debido a las oclusiones entre componentes. Optamos
+por formular el problema como un MDP (\emph{Markov Decision Process})
+con objetivos o, equivalentemente, un SSPP (\emph{Stochastic Shortest Plan Problem}).
+
+En general, las soluciones de los MDPs consisten en \emph{políticas} (i.e.
+funciones que asignan a cada estado la acción óptima que se ha de ejecutar)
+en lugar de secuencias de acciones. Algunos de los algoritmos más conocidos para
+resolver MDPs son \emph{Value Iteration} y \emph{Policy Iteration}. Sin embargo,
+estos algorítmos computan políticas completas y su complejidad es elevada cuando
+el estado está conformado por un elevado número de variables. Esto se debe a que
+el espacio de estados es excesivamente grande (\emph{curse of dimensionality}).
+Además, el esfuerzo computacional invertido en calcular políticas completas para
+resolver el MDP no se aprovecha cuando se detectan nuevos objetos y, por consiguiente,
+cambia la definición del estado y de los objetivos, invalidando la política anterior.
+
+Así pues, exploramos la efectividad de un método en línea de planificación
+basado en determinización y planificación clásica. Aprovechamos la eficiencia
+de los planificadore más avanzados, tales como Fast Forward. Consideramos
+los siguientes métodos de determinización: \emph{All-Outcome}, \emph{Single-Outcome},
+\emph{Alpha-Cost Transition Likelihood} y \emph{Hindsight Optimization}. Otra
+característica explotada en nuestro dominio es que hay fuertes relaciones de
+precedencia entre componentes. Esto nos permite aplicar planificación jerárquica,
+acotando el horizonte de planificación y, por tanto, reduciendo el esfuerzo
+de cómputo, sobre todo si es necesario replanificar.
+
+Hemos elaborado un conjunto de problemas de desensamblado para evaluar estos
+métodos. Además, las técnicas de determinización son probadas en dominios
+de las IPPCs (\emph{International Probabilistic Planning Competitions}) de años
+anteriores, con el objetivo de ver cómo se adecúan a otras aplicaciones
+diferentes de la nuestra.
+%Los resultados muestran que...

@@ -1,0 +1,3 @@
+The upload site asks for a <300 words abstract. Here it is:
+
+This work presents several ideas for planning under uncertainty. We seek to recycle electromechanical devices with a robotic arm. We resort to the Markov Decision Process formulation. In order to avoid scalability issues, we employ determinization techniques and hierarchical planning.

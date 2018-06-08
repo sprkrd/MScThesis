@@ -20,83 +20,22 @@
 % ABSTRACT %
 %%%%%%%%%%%%
 
-\newcommand{\abstractseparation}{0.66cm}
 \cleardoublepage
-
-\thispagestyle{plain}
+% Disable page numbering
 \pagenumbering{gobble}
-\begin{center}
-	\Large
-	\textbf{Towards Effective Planning Strategies for Robots in Recycling}
-	
-	\vspace{0.4cm}
-	\large
-	Thesis for the M.Sc. in Artificial Intelligence
-	
-	\vspace{0.4cm}
-	\textbf{Alejandro Su\'arez Hern\'andez}
-	
-	\vspace{0.9cm}
-	\textbf{Abstract}
-\end{center}
 
-In this work we present several ideas for planning under 
-uncertainty. Our intention is to apply these ideas to the domain
-of recycling
-electronic devices with a robotic arm. We formulate the problem as
-a goal-based MDP (Markov Decision Process) or, equivalently, a SSPP
-(Stochastic Shortest Path Problem). We propose determinization
-techniques in order to take advantage of state-of-the-art
-classical planning systems, such as Fast Downward. On the other hand,
-we exploit the topological precedences between the different
-components of the device to plan hierarchically and limit further
-the complexity of (re)planning. This work has been conducted within
-the European H2020 Imagine project.
-
-\vspace{\abstractseparation}%
-\hrule
-\vspace{\abstractseparation}
-\noindent
-{\itshape
-	En aquest treball presentem diverses idees per planificar sota
-	incertesa. Volem aplicar aquestes idees a reciclar
-	dispositius electr\`onics mitjan\c{c}ant un bra\c{c} robot. Formulem
-	el problema com un MDP (Markov Decision Process) o, equivalentment,
-	un SSPP (Stochastic Shortest Path Problem). Proposem t\`ecniques
-	de determinitzaci\'o per aprofitar els \'ultims avan\c{c}os en
-	planificadors cl\`assics com, per exemple, Fast Downward. D'altra banda,
-	explotem les preced\`encies topol\`ogiques entre els diferents
-	components del dispositiu per planificar jer\`arquicament i
-	limitar encara m\'es la complexitat de (re)planificar. Aquest
-	treball es s'ha dut a terme dins del projecte europeu H2020 Imagine.
-}
-
-\vspace{\abstractseparation}
-\hrule
-\vspace{\abstractseparation}
-\noindent
-{\itshape
-	En este trabajo presentamos varias ideas para planificar bajo
-	incertidumbre. Queremos aplicar estas ideas a reciclar
-	dispositivos electr\'onicos mediante un brazo robot. Formulamos
-	el problema como un MDP (Markov Decision Process) o, equivalentemente,
-	un SSPP (Stochastic Shortest Path Problem). Proponemos t\'ecnicas
-	de determinizaci\'on para aprovechar los últimos avances en
-	planificadores cl\'asicos, tales como Fast Downward. Por otro lado,
-	explotamos las precedencias topol\'ogicas entre los distintos
-	componentes del dispositivo para planificar jer\'arquicamente y
-	limitar a\'un m\'as la complejidad de (re)planificar. Este trabajo
-	se ha llevado a dentro del marco del proyecto europeo H2020 Imagine.
-}
+\input{abstract}
 
 \cleardoublepage
-
 % Reset page numbering to arabic
 \pagenumbering{arabic}
 
 %%%%%%%%%%%%%%%%%%%%%
 % TABLE OF CONTENTS %
 %%%%%%%%%%%%%%%%%%%%%
+
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
 
 \tableofcontents
 

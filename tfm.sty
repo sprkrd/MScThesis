@@ -12,10 +12,14 @@
 			pdfcreator={latexmk}]{hyperref}
 \usepackage{blindtext}
 \usepackage[font=small]{caption, subcaption}
+\usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{xstring}
 \usepackage{wrapfig}
 %\usepackage[top=2cm,bottom=2cm,left=3cm,right=1.5cm]{geometry}
+
+\hyphenation{e-va-luar}
+\hyphenation{a-ques-tes}
 
 \graphicspath{{./img/}{../img/}}
 
@@ -29,3 +33,5 @@
 	keepaspectratio]{iri-tesis_front_page.png}%
 	\vfill
 }}}
+
+\renewcommand{\subsection}[1]{\vspace{3ex}{\noindent\bfseries\large\stepcounter{subsection}\arabic{chapter}.\arabic{section}.\arabic{subsection}\hspace{0.5em}#1\vspace{2ex}}}

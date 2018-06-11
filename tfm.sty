@@ -34,4 +34,10 @@
 	\vfill
 }}}
 
-\renewcommand{\subsection}[1]{\vspace{3ex}{\noindent\bfseries\large\stepcounter{subsection}\arabic{chapter}.\arabic{section}.\arabic{subsection}\hspace{0.5em}#1\vspace{2ex}}}
+\renewcommand{\subsection}[1]{%
+\vspace{3ex}\addcontentsline{toc}{subsection}{%
+\arabic{chapter}.\arabic{section}.\arabic{subsection}\quad #1%
+}{%
+\noindent\bfseries\large\stepcounter{subsection}%
+\arabic{chapter}.\arabic{section}.\arabic{subsection}\hspace{0.5em}#1%
+\vspace{2ex}}}

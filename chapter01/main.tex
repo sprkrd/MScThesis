@@ -384,7 +384,8 @@ effects that are independent of the selected action).
 In other words, PPDDL considers that all the changes that may occur in the
 state are the result of conscious choices made by the agent.
 Much like in PDDL, the state is represented as a collection
-of predicates and, optionally and very often with limited support. numeric
+of predicates. Numeric variables can be also encoded in the state, although with
+very limited support from the available planners.
 state variables. We have chosen PPDDL because an effects-based language
 makes it much easier to design and
 manipulate the disassembly domain.
@@ -618,7 +619,8 @@ rather than with complex long-term goals and interdependences between
 components. In the future, we would like to incorporate some degree
 of low-level information into the planner within the Imagine project.
 PHYS and ASC, presented in Section~\ref{sec:imagine}, are invaluable
-tool to do this.
+tools for this purpose.
+
 
 \IfEq{\jobname}{\detokenize{root}}{}{\printbibliography}
 

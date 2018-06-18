@@ -304,7 +304,8 @@ reward-maximization problems rather than graph search. However,
 we can also think of specific class of MDPs which are goal-based
 and that are also also known as SSPPs (\emph{Stochastic Shortest
 Path Problem}). In these, there exists a subset of states called
-goals or absorbing states. MDPs are specified by the \emph{transition
+goals or absorbing states such that all actions lead to self-transitions
+with 0 reward. MDPs are specified by the \emph{transition
 probability}, the reward function and a discount factor that determines
 how important are the long-term versus the short term gains.
 The solution for general MDPs are \emph{policies}. That is,
@@ -364,6 +365,7 @@ a necessary condition) that the underlying model of the environment follows
 the same principles as an MDP, although it is unknown to the agent.
 
 \subsection{Modeling languages}
+\label{sec:modeling-languages}
 
 Above we mentioned a couple of options for modeling MDP
 problems in a principled way: PPDDL~\cite{younes2004ppddl1}) and RDDL%
@@ -466,8 +468,19 @@ relevant for the selected task.
 
 \section{Scope and goals}
 
-The present work revolves mainly around probabilistic planning, without focusing too much
-on topics such as scene perception and low-level robot control.
+Let us remind the general objectives presented in Section~\ref{sec:introduction}:
+we seek to enable a robotic arm to perform automatic disassembly
+of an electromechanical device. We approach the problem from
+the planning perspective, using
+the MDP formalism. That is, we allow actions to have associated stochastic effects.
+We seek to solve MDPs via on-line methods based on determinization, and
+to limit the planning complexity with a hierarchical decomposition
+of the recycling goal.
+
+The present work assumes that perception and low-level robot control
+routines are already provided, and that there is an existing interface
+to retrieve the state (as logic predicates) from the world and to execute
+actions on it.
 We present tools for modeling stochastic problems from the recycling
 domain, as well as techniques for
 dealing efficiently with these problems. Although all the examples and benchmarks
@@ -475,28 +488,28 @@ have been conceived for the particular use case of the hard drive,
 the techniques described here can be extrapolated to other devices by extending
 the state specification with variables particular to these devices.
 
-More specifically we:
+More specifically, we cover the following points:
 \begin{itemize}
-	\item propose a set of predicates to represent the different components of
-	the device and their relation to other components. These are used to represent
-	the world state.
-	\item propose a PPDDL (\emph{Probabilistic Planning Domain Definition Language})
-	model for the recycling domain. This model contains the schemata of the actions
-	that can be applied in the domain, as well as the specification of the
-	state variables (predicates and functions). PPDDL defines an action-based
+	\item We propose a tentative domain for the recycling application, following
+	the premises of the Imagine project. We provide a set of predicates that are meant to
+	represent the different components of
+	the device and the links among them. Moreover, the domain contains
+	the schemata of several manipulation action for retrieving the device's
+	components or flipping it. PPDDL defines an action-centric
 	DBN (\emph{Dynamic Bayes Network}) with full observability or, equivalently,
 	a MDP.
-	\item explore and test several determinization techniques to achieve fast
+	\item We explore and test several determinization techniques to achieve fast
 	approximate on-line solutions to MDPs. The rationale is to avoid costly policy
-	recalculations each time the state specification changes when new objects
+	recalculations each time new objects
 	are discovered (e.g. after removing the lid of a hard drive). The considered
 	determinization algorithms are: (1) All-Outcome and Single-Outcome%
 	~\cite{yoon2007ffreplan};
-	(2) $ \alpha $-Cost-Transition-Likelihood~\cite{kaelbling2013integrated};
+	(2) $ \alpha $-Cost-Transition-Likelihood~\cite{kaelbling2013integrated}; and
 	(3) Hindsight optimization~\cite{yoon2008probabilistic,yoon2010improving}.
-	\item complement the previous technique with hierarchical planning, taking
+	\item We complement the previous techniques with hierarchical planning, taking
 	advantage of the strong precedences that arise naturally in the
-	considered application. This occurs, for instance, when the read
+	considered application. This occurs, for instance, when the reader of a hard
+	drive is occluding the platters.
 \end{itemize}
 
 We assess the effectiveness of these strategies testing them against

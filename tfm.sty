@@ -17,10 +17,33 @@
 \usepackage{xstring}
 \usepackage{wrapfig}
 \usepackage{algorithm2e}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{listings}
+%\usepackage[toc,page]{appendix}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
 %\usepackage[top=2cm,bottom=2cm,left=3cm,right=1.5cm]{geometry}
 
 \hyphenation{e-va-luar}
 \hyphenation{a-ques-tes}
+
+\lstdefinestyle{pddl}{
+	numbers=left,
+	belowcaptionskip=1\baselineskip,
+	breaklines=true,
+	frame=single,
+	xleftmargin=\parindent,
+	language=lisp,
+	showstringspaces=false,
+	basicstyle=\tiny\ttfamily,
+	keywordstyle=\bfseries\color{green!40!black},
+	commentstyle=\itshape\color{purple!40!black},
+%	identifierstyle=\color{blue},
+	stringstyle=\color{orange},
+}
+\lstset{escapechar=@,style=pddl}
 
 \graphicspath{{./img/}{../img/}}
 

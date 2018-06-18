@@ -1,0 +1,143 @@
+\documentclass[../root.tex]{subfiles}
+
+\begin{document}
+
+``Terrains'' domain together with a small problem instance:
+
+\begin{lstlisting}
+; Author: Alejandro Suarez Hernandez
+
+(define (domain terrain)
+(:requirements :typing :strips :probabilistic-effects :rewards)
+(:types loc - object land shallow-water deep-water - loc)
+(:predicates
+  (connected ?l1 ?l2 - loc)
+  (at ?l - loc)
+  (boulder-at ?l - loc)
+  (pickaxe-at ?l - loc)
+  (flag-at ?l - loc)
+  (alive)
+  (has-pickaxe)
+  (goal-reached)
+)
+
+(:action move-to-land
+ :parameters (?l1 - loc ?l2 - land)
+ :precondition (and 
+  (alive)
+  (at ?l1)
+  (or (connected ?l1 ?l2)
+  (connected ?l2 ?l1))
+  (not (boulder-at ?l2)))
+ :effect (and
+  (not (at ?l1))
+  (at ?l2)
+  (decrease (reward) 1))
+)
+
+(:action move-to-shallow-water
+ :parameters (?l1 - loc ?l2 - shallow-water)
+ :precondition (and 
+  (alive)
+  (at ?l1)
+  (or (connected ?l1 ?l2) (connected ?l2 ?l1))
+  (not (boulder-at ?l2)))
+ :effect (and
+  (not (at ?l1))
+  (at ?l2)
+  (probabilistic 0.05 (not (alive)))
+  (decrease (reward) 1)
+))
+
+(:action move-to-deep-water
+ :parameters (?l1 - loc ?l2 - deep-water)
+ :precondition (and 
+  (alive)
+  (at ?l1)
+  (or (connected ?l1 ?l2) (connected ?l2 ?l1))
+  (not (boulder-at ?l2)))
+ :effect (and
+  (not (at ?l1))
+  (at ?l2)
+  (probabilistic 0.2 (not (alive)))
+  (decrease (reward) 1))
+)
+
+(:action pick-pickaxe
+ :parameters (?l - loc)
+ :precondition (and
+  (alive)
+  (not (has-pickaxe))
+  (at ?l)
+  (pickaxe-at ?l))
+ :effect (and
+  (has-pickaxe)
+  (not (pickaxe-at ?l)))
+)
+
+(:action break-boulder
+ :parameters (?l1 ?l2 - land)
+ :precondition (and
+  (alive)
+  (has-pickaxe)
+  (at ?l1)
+  (or (connected ?l1 ?l2) (connected ?l2 ?l1))
+  (boulder-at ?l2))
+ :effect (and
+  (not (boulder-at ?l2))
+  (decrease (reward) 2))
+)
+
+(:action reach-goal
+ :parameters (?l - loc)
+ :precondition (and
+  (not (goal-reached))
+  (alive)
+  (at ?l)
+  (flag-at ?l)
+ )
+ :effect (goal-reached)
+)
+
+)
+
+(define (problem p01)
+(:domain terrain)
+(:objects
+  x_0_0 x_0_2 x_0_3 x_1_0 x_2_0 x_2_1 x_2_2 x_2_3  - land
+  x_0_1 x_1_1  - shallow-water
+  x_1_2 x_1_3  - deep-water
+)
+(:init
+  (alive)
+  (connected x_0_0 x_1_0)
+  (connected x_0_0 x_0_1)
+  (connected x_0_1 x_1_1)
+  (connected x_0_1 x_0_2)
+  (connected x_0_2 x_1_2)
+  (connected x_0_2 x_0_3)
+  (connected x_0_3 x_1_3)
+  (connected x_1_0 x_2_0)
+  (connected x_1_0 x_1_1)
+  (connected x_1_1 x_2_1)
+  (connected x_1_1 x_1_2)
+  (connected x_1_2 x_2_2)
+  (connected x_1_2 x_1_3)
+  (connected x_1_3 x_2_3)
+  (connected x_2_0 x_2_1)
+  (connected x_2_1 x_2_2)
+  (connected x_2_2 x_2_3)
+  (at x_1_0)
+  (boulder-at x_2_1)
+  (pickaxe-at x_0_3)
+  (flag-at x_2_3)
+  (= (reward) 0)
+)
+(:goal (goal-reached))
+(:metric maximize (reward))
+)
+\end{lstlisting}
+
+\IfEq{\jobname}{\detokenize{root}}{}{\printbibliography}
+
+\end{document}

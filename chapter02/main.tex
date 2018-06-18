@@ -25,8 +25,8 @@ and/or actions spaces, although these naturally present more challenges.
 		a probabilistic Markov transition model. For each triplet
 		$ (s, a, s') $, it indicates the probability of transitioning from $ s $
 		to $ s' $ when action $ a $ is taken in state $ s $.
-		\item $ R(s,a) $ is a reward function where $ R(s,a) $ is the immediate
-		reward of taking action $ a $ in state $ s $.
+		\item $ R(s,a,s') $ is a reward function where $ R(s,a) $ is the immediate
+		reward for transitioning from state $ s $ to state $ s' $ through $ a $.
 		\item $ \gamma $ is the discount factor. Rewards are diminished
 		by this factor after each time step.
 	\end{itemize}
@@ -34,12 +34,12 @@ and/or actions spaces, although these naturally present more challenges.
 
 There are alternative
 definitions that consider a reward of the form $ R(s) $, and also of
-the form $ R(s,a,s') $. These can be made
-equivalent with a slight re-parametrization of the problem,
-and do not alter the problem in any fundamental way~\cite{russell2016artificial}.
+the form $ R(s,a) $. These can be made
+equivalent with a slight re-parametrization of the problem. They
+do not alter the problem in any fundamental way~\cite{russell2016artificial}.
 
 The reward accumulated over time is:
-\[ \sum_{t=0}^\infty \gamma^t R(s_t, a_t) \],
+\[ \sum_{t=0}^\infty \gamma^t R(s_t, a_t, s_{t+1}) \],
 where $ a_t $ is the action selected by the agent at each time step.
 Solving a MDP consists in finding a \emph{policy} that maximizes the total or accumulated
 reward. A policy is a function $ \pi (s) \in A $ that maps each state
@@ -55,7 +55,7 @@ are not infinite. $ \gamma = 0.99 $ and $ \gamma = 0.95 $ are usual choices.
 We can assign an utility function to each state. This function gives an
 idea of the accumulated reward that we can expect to obtain if this state
 is reached. This utility function is defined as a \emph{Bellman equation}:
-\[ V(s) = \max_a \left\{  R(s, a) + \sum_{s'} \gamma \mathbb{P}(S_{t+1} = s' | S_t = s \land A_t=a) V(s') \right\} \].
+\[ V(s) = \max_a \left\{ \sum_{s'} \left( R(s, a, s') + \gamma \mathbb{P}(S_{t+1} = s' | S_t = s \land A_t=a) V(s') \right) \right\} \].
 
 This equation already gives an indication for a couple of dynamic programming
 algorithms for solving MDPs: \emph{Value Iteration} and \emph{Policy Iteration}.
@@ -84,15 +84,16 @@ methods that do not require exhaustive iteration over all the state space.
 \theoremstyle{definition}
 \begin{definition}{\bfseries Stochastic Shortest Path Problem}
 	A Stochastic Shortest Path Problem is an MDP with absorbing states and
-	negative rewards. The MDP is specified by a tuple $ (S, A, T, C, G) $ as
+	negative rewards. The SSPP is specified by a tuple $ (S, A, T, C, G) $ as
 	follows:
 	\begin{itemize}
 		\item $ S $, $ A $ and $ T $  have the same meaning as in an MDP
-		\item $ C(s, a) $ is the cost of taking action $ a $ in state $ s $.
-		$ C(s, a) = -R(s, a) $.
+		\item $ C(s, a, s') $ is the cost of transitioning from state $ s $
+		to state $ s' $ through action $ a $.
+		$ C(s, a, s') = -R(s, a, s') $.
 		\item $ G \subseteq S $ is the set of absorbing states.
-		$ \forall g \in G, a \in A \quad C(g, a) = 0 \land T(g,a,g) = 1 $.
-		\item the discount factor is $ \gamma = 1 $
+		$ \forall g \in G, a \in A \quad C(g,a,g) = 0 \land T(g,a,g) = 1 $.
+		\item the discount factor is $ \gamma = 1 $.
 	\end{itemize}
 \end{definition}
 
@@ -104,14 +105,14 @@ planning problems. Notice that, since all the rewards are negative, we allow
 $ \gamma = 1 $ without resulting in an ill-defined problem with positive
 cycles. The problem essentially consists in reaching one of the goal
 states with high probability minimizing the transition cost. For a transition
-cost $ C(s, a) = 1 $ this would be the same as minimizing the plan length.
+cost $ C(s, a, s') = 1\ \forall s,s',a $ this would be the same as minimizing the plan length.
 
 \section{Specification of the problem in PPDDL}
 
 We represent the dynamics of our SSPP using PPDDL
 (\emph{Probabilistic Planning Domain Description Language})%
 ~\cite{younes2004ppddl1}. As said in
-Section~\ref{sec:modeling-languages}, PPDDL is an actions-centric language.
+Section~\ref{sec:modeling-languages}, PPDDL is an action-centric language.
 While exogenous effects and events are difficult to model in PPDDL, it makes
 it easier to express the effects of conscious choices made by the
 robot.
@@ -132,9 +133,9 @@ The body of a PPDDL domain consists of:
 \end{itemize}
 
 PPDDL is built on top of PDDL: it has a LISP-like syntax, supports several types
-of preconditions (simple predicate check, negative, conjunctive,
-existential, universal, ...)
-and effects (add effects, delete effects, conditional, total, ...). The main
+of preconditions (e.g. simple predicate check, negative, conjunctive,
+existential, universal)
+and effects (e.g. add effects, delete effects, conditional, total). The main
 additions of PPDDL are the implicit declaration of a \texttt{(reward)}
 numeric variable,
 should the \texttt{:rewards} requirement be listed; and probabilistic
@@ -212,7 +213,7 @@ premises of the Imagine problem:
 	\item The robot should be able to grasp the device and turn it over, either
 	to operate on the other side or to let loosen components fall down.
 	\item The points of interest of the different actions are known as
-	\emph{affordance}. An affordance consists in a special point in
+	\emph{affordances}. An affordance consists in a special point in
 	a component for levering, suctioning or extracting with pliers.
 	It makes sense to consider affordances with different levels of
 	confidence. The confidence determines the success probabilitiy of the
@@ -229,49 +230,61 @@ the dynamics of the recycling domain in PPDDL.
 	\includegraphics[width=0.45\columnwidth]{hdd-affordances}
 	\caption{Affordances in a HDD PCB. Each of the blue
 		circles is an affordance for a lever-up action, either for
-		removing or loosening the PCB. Source: Boğaziçi University}
+		removing or loosening the PCB.}
 %	\vspace{-1cm}
 	\label{fig:hdd-affordances}
 \end{figure}
 
-We assume the robot to be equipped with a multifunctional gripper such as the
-one showed in Fig.~\ref{fig:gripper-kit}. This gripper allows performing
+We assume the robot to be equipped with a multifunctional gripper.
+This gripper allows performing
 bimanual skills with just one manipulator thanks to its two kind
 of fingers: a couple of parallel fingers for grasping
 and a SCARA finger to assist in grasping or for manipulation of
 the device while it is held.
 The gripper allows to carry several
 tools and has the potential to use them with two grasping modes:
-power grab, using all the fingers to perform a stable and powerful grasp%
-~\ref{fig:gripper-kit-power}; and the SCARA mode, using the third finger
-to grab the tool while the parallel fingers hold the device%
-~\ref{fig:gripper-kit-scara}.
+power grab, using all the fingers to perform a stable and powerful grasp;
+and the SCARA mode, using the third finger
+to grab the tool while the parallel fingers hold the device.
 
-\begin{figure}[tbhp]
-	\centering
-	\begin{subfigure}[b]{0.8\columnwidth}
-		\includegraphics[width=\textwidth]{gripper-kit}
-		\caption{}
-		\label{fig:gripper-kit}
-	\end{subfigure}
-	
-	\begin{subfigure}[b]{0.25\columnwidth}
-		\includegraphics[width=\textwidth]{gripper-kit-power}
-		\caption{}
-		\label{fig:gripper-kit-power}
-	\end{subfigure}
-	\hspace{2cm}
-	\begin{subfigure}[b]{0.25\columnwidth}
-		\includegraphics[width=\textwidth]{gripper-kit-scara}
-		\caption{}
-		\label{fig:gripper-kit-scara}
-	\end{subfigure}
-	\caption{
-		(a) Multifunctional gripper designed by KIT (Karlsruher Institut für Technologie) with named parts.
-		(b) Grabbing a hammer with a power grip.
-		(c) Using a tool with the SCARA finger.
-	}
-\end{figure}
+%We assume the robot to be equipped with a multifunctional gripper such as the
+%one showed in Fig.~\ref{fig:gripper-kit}. This gripper allows performing
+%bimanual skills with just one manipulator thanks to its two kind
+%of fingers: a couple of parallel fingers for grasping
+%and a SCARA finger to assist in grasping or for manipulation of
+%the device while it is held.
+%The gripper allows to carry several
+%tools and has the potential to use them with two grasping modes:
+%power grab, using all the fingers to perform a stable and powerful grasp%
+%~\ref{fig:gripper-kit-power}; and the SCARA mode, using the third finger
+%to grab the tool while the parallel fingers hold the device%
+%~\ref{fig:gripper-kit-scara}.
+%
+%\begin{figure}[tbhp]
+%	\centering
+%	\begin{subfigure}[b]{0.8\columnwidth}
+%		\includegraphics[width=\textwidth]{gripper-kit}
+%		\caption{}
+%		\label{fig:gripper-kit}
+%	\end{subfigure}
+%	
+%	\begin{subfigure}[b]{0.25\columnwidth}
+%		\includegraphics[width=\textwidth]{gripper-kit-power}
+%		\caption{}
+%		\label{fig:gripper-kit-power}
+%	\end{subfigure}
+%	\hspace{2cm}
+%	\begin{subfigure}[b]{0.25\columnwidth}
+%		\includegraphics[width=\textwidth]{gripper-kit-scara}
+%		\caption{}
+%		\label{fig:gripper-kit-scara}
+%	\end{subfigure}
+%	\caption{
+%		(a) Multifunctional gripper designed by KIT (Karlsruher Institut für Technologie) with named parts.
+%		(b) Grabbing a hammer with a power grip.
+%		(c) Using a tool with the SCARA finger.
+%	}
+%\end{figure}
 
 All of these considerations have been pondered in order to elaborate a domain that
 describes as good as possible the dynamics of a recycling domain. Whether the robot

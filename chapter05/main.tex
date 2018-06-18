@@ -2,7 +2,158 @@
 
 \begin{document}
 
-asdfasfd
+\section{Determinization}
+
+\begin{table}[tbp]
+\centering
+\caption{Results of the experiments with the IPPC2008 domains}
+\resizebox{0.8\textwidth}{!}{\begin{tabular}{|r|r|r|r|r|r|r|}
+\hline
+\textbf{Problem} & \multicolumn{ 3}{c|}{\textbf{ex-blocksworld}} & \multicolumn{ 3}{c|}{\textbf{zenotravel}} \\ \hline
+\textbf{Determinizer} & \textbf{S} & \textbf{C} & \textbf{E} & \textbf{S} & \textbf{C} & \textbf{E} \\ \hline
+\textbf{ml-ff} & 34/50 (68\%) & 9.35 & 0.02 & 20/20 (100\%) & 66.60 & 0.02 \\ \hline
+\textbf{ma-ff} & 10/50 (20\%) & 5.00 & 0.03 & 20/20 (100\%) & 48.35 & 0.02 \\ \hline
+\textbf{ao-ff} & 31/50 (62\%) & 9.06 & 0.02 & 20/20 (100\%) & 61.10 & 0.02 \\ \hline
+\textbf{alph-1.0} & 29/50 (58\%) & 8.72 & 0.14 & 20/20 (100\%) & 59.90 & 0.15 \\ \hline
+\textbf{alph-0.2} & 28/50 (56\%) & 8.07 & 0.15 & 20/20 (100\%) & 57.65 & 0.14 \\ \hline
+\textbf{alph-0.1} & 34/50 (68\%) & 9.06 & 0.14 & 20/20 (100\%) & 70.35 & 0.15 \\ \hline
+\textbf{alph-0.0} & 33/50 (66\%) & 8.76 & 0.13 & 20/20 (100\%) & 36.85 & 0.14 \\ \hline
+\textbf{ho-lo-30} & - & - & - & - & - & - \\ \hline
+\textbf{ho-lo-15} & - & - & - & - & - & - \\ \hline
+\textbf{ho-gl-30} & - & - & - & - & - & - \\ \hline
+\textbf{ho-gl-15} & - & - & - & - & - & - \\ \hline\hline
+\textbf{Problem} & \multicolumn{ 3}{c|}{\textbf{triangle-tw}} & \multicolumn{ 3}{c|}{\textbf{rectangle-tw}} \\ \hline
+\textbf{Determinizer} & \textbf{S} & \textbf{C} & \textbf{E} & \textbf{S} & \textbf{C} & \textbf{E} \\ \hline
+\textbf{ml-ff} & 50/50 (100\%) & 21.28 & 0.10 & 11/30 (36.67\%) & 6.27 & 0.01 \\ \hline
+\textbf{ma-ff} & 50/50 (100\%) & 21.04 & 0.09 & 16/30 (53.33\%) & 4.94 & 0.01 \\ \hline
+\textbf{ao-ff} & 8/50 (16\%) & 2.25 & 0.01 & 11/30 (36.67\%) & 6.09 & 0.01 \\ \hline
+\textbf{alph-1.0} & 6/50 (12\%) & 3.33 & 0.08 & 13/30 (43.33\%) & 4.46 & 0.12 \\ \hline
+\textbf{alph-0.2} & 6/50 (12\%) & 2.67 & 0.07 & 9/30 (30\%) & 4.22 & 0.11 \\ \hline
+\textbf{alph-0.1} & 6/50 (12\%) & 2.33 & 0.08 & 9/30 (30\%) & 4.67 & 0.12 \\ \hline
+\textbf{alph-0.0} & 7/50 (14\%) & 2.29 & 0.07 & 15/30 (50\%) & 4.53 & 0.12 \\ \hline
+\textbf{ho-lo-30} & 49/50 (98\%) & 20.78 & 20.01 & 30/30 (100\%) & 10.63 & 40.64 \\ \hline
+\textbf{ho-lo-15} & 46/50 (92\%) & 21.30 & 8.45 & 24/30 (80\%) & 9.88 & 11.09 \\ \hline
+\textbf{ho-gl-30} & 49/50 (98\%) & 21.80 & 27.74 & 27/30 (90\%) & 10.19 & 33.91 \\ \hline
+\textbf{ho-gl-15} & 47/50 (94\%) & 21.26 & 17.71 & 25/30 (83.33\%) & 10.12 & 18.06 \\ \hline\hline
+\textbf{Problem} & \multicolumn{ 3}{c|}{\textbf{blocksworld}} & \multicolumn{ 3}{c|}{\textbf{schedule}} \\ \hline
+\textbf{Determinizer} & \textbf{S} & \textbf{C} & \textbf{E} & \textbf{S} & \textbf{C} & \textbf{E} \\ \hline
+\textbf{ml-ff} & 30/30 (100\%) & 45.17 & 0.02 & 0/50 (0\%) & - & - \\ \hline
+\textbf{ma-ff} & 30/30 (100\%) & 45.93 & 0.03 & 30/50 (60\%) & 24.20 & 0.02 \\ \hline
+\textbf{ao-ff} & 30/30 (100\%) & 43.23 & 0.05 & 30/50 (60\%) & 23.20 & 0.02 \\ \hline
+\textbf{alph-1.0} & 30/30 (100\%) & 15.40 & 0.13 & 50/50 (100\%) & 27.00 & 0.17 \\ \hline
+\textbf{alph-0.2} & 30/30 (100\%) & 15.73 & 0.14 & 50/50 (100\%) & 34.14 & 0.18 \\ \hline
+\textbf{alph-0.1} & 30/30 (100\%) & 15.67 & 0.13 & 50/50 (100\%) & 27.18 & 0.17 \\ \hline
+\textbf{alph-0.0} & 30/30 (100\%) & 14.97 & 0.13 & 50/50 (100\%) & 30.24 & 0.17 \\ \hline
+\textbf{ho-lo-30} & - & - & - & - & - & - \\ \hline
+\textbf{ho-lo-15} & - & - & - & - & - & - \\ \hline
+\textbf{ho-gl-30} & - & - & - & - & - & - \\ \hline
+\textbf{ho-gl-15} & - & - & - & - & - & - \\ \hline
+\end{tabular}}
+\label{results-determinization}
+\end{table}
+
+\begin{table}
+\centering
+\caption{Results of the experiments with the ''terrain`` and the recycling domain (``imagine'')}
+\resizebox{0.8\textwidth}{!}{\begin{tabular}{|r|r|r|r|r|r|r|l|}
+\hline
+\textbf{Problem} & \multicolumn{ 3}{c|}{\textbf{terrain}} & \multicolumn{ 3}{c|}{\textbf{imagine}} \\ \hline
+\textbf{Determinizer} & \textbf{S} & \textbf{C} & \textbf{E} & \textbf{S} & \textbf{C} & \textbf{E} \\ \hline
+\textbf{ml-ff} & 21/30 (70\%) & 8.33 & 0.01 & 23/50 (46\%) & 20.30 & 0.04 \\ \hline
+\textbf{ma-ff} & 10/30 (33.33\%) & 21.00 & 0.02 & 32/50 (64\%) & 21.81 & 0.06 \\ \hline
+\textbf{ao-ff} & 14/30 (46.67\%) & 7.43 & 0.01 & 24/50 (48\%) & 20.29 & 0.06 \\ \hline
+\textbf{alph-1.0} & 20/30 (66.67\%) & 7.80 & 0.10 & 32/50 (64\%) & 23.09 & 0.61 \\ \hline
+\textbf{alph-0.2} & 21/30 (70\%) & 7.95 & 0.10 & 29/50 (58\%) & 22.90 & 0.61 \\ \hline
+\textbf{alph-0.1} & 27/30 (90\%) & 10.33 & 0.11 & 35/50 (70\%) & 26.03 & 0.77 \\ \hline
+\textbf{alph-0.0} & 30/30 (100\%) & 20.67 & 0.11 & 34/50 (68\%) & 22.44 & 0.65 \\ \hline
+\textbf{ho-lo-30} & - & - & - & - & - & - \\ \hline
+\textbf{ho-lo-15} & - & - & - & - & - & - \\ \hline
+\textbf{ho-gl-30} & - & - & - & - & - & - \\ \hline
+\textbf{ho-gl-15} & - & - & - & - & - & - \\ \hline
+\end{tabular}}
+\end{table}
+
+\section{Hierarchical planning}
+
+%\begin{figure}[tbhp]
+%\centering
+%\begin{subfigure}[m]{0.48\columnwidth}
+%\begin{lstlisting}[numbers=none]
+%Starting...
+%[0.203s] Executed (pick-tool flat-sd power)
+%[0.203s] Executed (unscrew-power-non-stuck lid-s0 flat-sd top)
+%[0.403s] Executed (assert-clear lid)
+%[0.404s] Executed (lever-power-medium-confidence lid lid-a0 top)
+%[0.404s] Executed (check-removed lid top)
+%[0.599s] Executed (put-away-tool flat-sd power)
+%[0.599s] Executed (grab-device)
+%[0.600s] Executed (flip top bottom)
+%[0.600s] Executed (assert-clear platter)
+%[0.601s] Executed (let-fall-down platter top bottom)
+%[0.601s] Executed (let-fall-down platter top bottom)
+%[0.602s] Executed (let-fall-down platter top bottom)
+%[0.603s] Executed (let-fall-down platter top bottom)
+%[0.603s] Executed (let-fall-down platter top bottom)
+%[0.604s] Executed (let-fall-down platter top bottom)
+%Same action repeated too many times! Changing priority...
+%[0.811s] Executed (place-device)
+%[0.812s] Executed (pick-tool star-sd power)
+%[0.812s] Executed (unscrew-power-non-stuck reader-s0 star-sd bottom)
+%[1.011s] Executed (put-away-tool star-sd power)
+%[1.012s] Executed (grab-device)
+%[1.013s] Executed (flip bottom top)
+%[1.013s] Executed (place-device)
+%[1.013s] Executed (pick-tool pliers power)
+%[1.014s] Executed (assert-clear reader)
+%[1.015s] Executed (extract-with-pliers-high-confidence reader reader-a1 top)
+%[1.015s] Executed (check-removed reader top)
+%[1.210s] Executed (put-away-tool pliers power)
+%[1.211s] Executed (grab-device)
+%[1.211s] Executed (flip top bottom)
+%[1.212s] Executed (let-fall-down platter top bottom)
+%[1.212s] Executed (flip bottom top)
+%[1.213s] Executed (check-removed platter top)
+%[1.213s] Stopped after 32 step(s). Success!
+%\end{lstlisting}
+%\caption{}
+%\end{subfigure}
+%~
+%\begin{subfigure}[m]{0.48\columnwidth}
+%\begin{lstlisting}[numbers=none]
+%Starting...
+%[0.205s] Executed (pick-tool flat-sd power)
+%[0.206s] Executed (unscrew-power-non-stuck lid-s0 flat-sd top)
+%[0.410s] Executed (unscrew-power-stuck lid-s0 flat-sd top)
+%[0.607s] Executed (assert-clear lid)
+%[0.608s] Executed (lever-power-medium-confidence lid lid-a0 top)
+%[0.609s] Executed (check-removed lid top)
+%[0.819s] Executed (put-away-tool flat-sd power)
+%[0.819s] Executed (grab-device)
+%[0.820s] Executed (flip top bottom)
+%[0.820s] Executed (place-device)
+%[0.821s] Executed (pick-tool star-sd power)
+%[0.822s] Executed (unscrew-power-non-stuck reader-s0 star-sd bottom)
+%[1.025s] Executed (put-away-tool star-sd power)
+%[1.026s] Executed (grab-device)
+%[1.026s] Executed (flip bottom top)
+%[1.027s] Executed (place-device)
+%[1.027s] Executed (pick-tool pliers power)
+%[1.028s] Executed (assert-clear reader)
+%[1.028s] Executed (extract-with-pliers-high-confidence reader reader-a1 top)
+%[1.029s] Executed (check-removed reader top)
+%[1.227s] Executed (put-away-tool pliers power)
+%[1.227s] Executed (grab-device)
+%[1.228s] Executed (flip top bottom)
+%[1.228s] Executed (assert-clear platter)
+%[1.229s] Executed (let-fall-down platter top bottom)
+%[1.230s] Executed (flip bottom top)
+%[1.230s] Executed (check-removed platter top)
+%[1.230s] Stopped after 27 step(s). Success!
+%\end{lstlisting}
+%\caption{}
+%\end{subfigure}
+%\caption{}
+%\end{figure}
 
 \IfEq{\jobname}{\detokenize{root}}{}{\printbibliography}
 
